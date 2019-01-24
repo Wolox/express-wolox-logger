@@ -1,0 +1,36 @@
+{
+  "name": "express-logger",
+  "version": "0.0.1",
+  "description": "ExpressJS Logger",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mpizzagalli/express-logger.git"
+  },
+  "keywords": [
+    "express",
+    "expressjs",
+    "logger",
+    "node",
+    "nodejs",
+    "log"
+  ],
+  "author": "Matias Pizzagalli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mpizzagalli/express-logger/issues"
+  },
+  "homepage": "https://github.com/mpizzagalli/express-logger#readme",
+  "dependencies": {
+    "cls-hooked": "^4.2.2",
+    "on-finished": "^2.3.0",
+    "pino": "^5.11.1",
+    "pino-pretty": "^2.5.0",
+    "uuid": "^3.3.2",
+    "winston": "^3.2.0",
+    "winston-daily-rotate-file": "^3.6.0"
+  }
+}
