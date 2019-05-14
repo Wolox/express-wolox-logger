@@ -1,7 +1,7 @@
 {
-  "name": "express-logger",
+  "name": "express-wolox-logger",
   "version": "0.0.1",
-  "description": "ExpressJS Logger",
+  "description": "ExpressJS Wolox Logger",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,10 +16,11 @@
     "logger",
     "node",
     "nodejs",
-    "log"
+    "log",
+    "wolox"
   ],
-  "author": "Matias Pizzagalli",
-  "license": "ISC",
+  "author": "Wolox",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/mpizzagalli/express-logger/issues"
   },
@@ -29,8 +30,6 @@
     "on-finished": "^2.3.0",
     "pino": "^5.11.1",
     "pino-pretty": "^2.5.0",
-    "uuid": "^3.3.2",
-    "winston": "^3.2.0",
-    "winston-daily-rotate-file": "^3.6.0"
+    "uuid": "^3.3.2"
   }
 }
