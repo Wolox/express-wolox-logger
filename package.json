@@ -1,6 +1,6 @@
 {
   "name": "express-wolox-logger",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "ExpressJS Wolox Logger",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/mpizzagalli/express-logger.git"
+    "url": "git@github.com:Wolox/express-wolox-logger.git"
   },
   "keywords": [
     "express",
@@ -22,9 +22,9 @@
   "author": "Wolox",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mpizzagalli/express-logger/issues"
+    "url": "https://github.com/Wolox/express-wolox-logger/issues"
   },
-  "homepage": "https://github.com/mpizzagalli/express-logger#readme",
+  "homepage": "https://github.com/Wolox/express-wolox-logger#readme",
   "dependencies": {
     "cls-hooked": "^4.2.2",
     "on-finished": "^2.3.0",
