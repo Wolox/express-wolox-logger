@@ -3,6 +3,8 @@ const request = require('supertest');
 
 const { logger, expressMiddleware, expressRequestIdMiddleware, getRequestId } = require('..');
 
+const testLogger = logger();
+
 describe('middlewares', () => {
   const createServer = middleware =>
     http.createServer((req, res) => {
@@ -19,8 +21,8 @@ describe('middlewares', () => {
   const makeRequest = server => request(server).get(testUrl);
 
   describe('express middleware', () => {
-    const server = createServer(expressMiddleware);
-    const loggerMock = jest.spyOn(logger, 'info').mockImplementation(() => {}); // eslint-disable-line no-empty-function
+    const server = createServer(expressMiddleware(testLogger));
+    const loggerMock = jest.spyOn(testLogger, 'info').mockImplementation(() => {}); // eslint-disable-line
 
     const getLoggerCalledParams = num => loggerMock.mock.calls[num].map(JSON.stringify).join('');
 
