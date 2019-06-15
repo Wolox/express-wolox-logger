@@ -4,10 +4,10 @@ ExpressJS logger that wraps [pino](https://github.com/pinojs/pino) with addition
 
 ## Basic Usage
 ```
-const logger = require('express-wolox-logger')
+const { logger } = require('express-wolox-logger');
 
-logger.info('hello world')
-logger.error('something bad happened')
+logger.info('hello world');
+logger.error('something bad happened');
 ```
 This will output:
 ```
@@ -17,9 +17,9 @@ This will output:
 
 ## Advanced Usage
 ### Logs for request beginning and end
-We provide an ExpressJs middleware that automatically logs when a request starts and ends. Simply import it an use it like any other middleware:
+We provide an ExpressJs middleware that automatically logs when a request starts and ends. Simply import it and use it like any other middleware:
 ```
-const { expressMiddleware } = require('express-wolox-logger')
+const { expressMiddleware } = require('express-wolox-logger');
 
 app.use(expressMiddleware);
 ```
@@ -34,7 +34,7 @@ This in conjunction with the basic logs will output:
 ### Request Ids
 We also provide an ExpressJs middleware that appends a `request id` to all logs made for a single request. This is useful for better tracking logs when there are several requests going on concurrently. Again, simply import it and use it like any other middleware.
 ```
-const { expressRequestIdMiddleware } = require('express-wolox-logger')
+const { expressRequestIdMiddleware } = require('express-wolox-logger');
 
 app.use(expressRequestIdMiddleware);
 ```
@@ -44,12 +44,12 @@ This, in conjunction with the basic logs will output:
 [2019-06-14 17:35:13.772 +0000] ERROR (17439 on my-pc.local): [a2936029-9bd4-402d-ba43-a4873f228274] something bad happened
 ```
 ####Forwarding the request Id
-As a bonus, the previously mentioned request Id is taken from the `x-request-id` header if supplied, which lets said `request id` be transfered across services. You can do this by importing the `getRequestId` function and supplying it to the header when making requests.
+As a bonus, the previously mentioned request Id is taken from the `x-request-id` header if supplied, which lets said `request id` be transferred across services. You can do this by importing the `getRequestId` function and supplying it to the header when making requests.
 ```
 const request = require('axios'),
-{ getRequestId } = require('express-wolox-logger');
+ { getRequestId } = require('express-wolox-logger');
 
-axios.get(URL, { headers: { 'xrequest-id': getRequestId() } })
+axios.get(URL, { headers: { 'xrequest-id': getRequestId() } });
 ```
 This will result in the requestId being logged through your services until the request chain ends.
 
