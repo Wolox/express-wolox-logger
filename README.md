@@ -19,9 +19,9 @@ This will output:
 ### Logs for request beginning and end
 We provide an ExpressJs middleware that automatically logs when a request starts and ends. Simply import it and use it like any other middleware:
 ```
-const { expressMiddleware } = require('express-wolox-logger');
+const { logger, expressMiddleware } = require('express-wolox-logger');
 
-app.use(expressMiddleware);
+app.use(expressMiddleware({ logger }));
 ```
 This in conjunction with the basic logs will output:
 ```
@@ -34,9 +34,9 @@ This in conjunction with the basic logs will output:
 ### Request Ids
 We also provide an ExpressJs middleware that appends a `request id` to all logs made for a single request. This is useful for better tracking logs when there are several requests going on concurrently. Again, simply import it and use it like any other middleware.
 ```
-const { expressRequestIdMiddleware } = require('express-wolox-logger');
+const { logger, expressRequestIdMiddleware } = require('express-wolox-logger');
 
-app.use(expressRequestIdMiddleware);
+app.use(expressRequestIdMiddleware({ logger }));
 ```
 This, in conjunction with the basic logs will output:
 ```
@@ -46,10 +46,10 @@ This, in conjunction with the basic logs will output:
 ####Forwarding the request Id
 As a bonus, the previously mentioned request Id is taken from the `x-request-id` header if supplied, which lets said `request id` be transferred across services. You can do this by importing the `getRequestId` function and supplying it to the header when making requests.
 ```
-const request = require('axios'),
+const axios = require('axios'),
  { getRequestId } = require('express-wolox-logger');
 
-axios.get(URL, { headers: { 'xrequest-id': getRequestId() } });
+axios.get(URL, { headers: { 'x-request-id': getRequestId() } });
 ```
 This will result in the requestId being logged through your services until the request chain ends.
 
