@@ -19,8 +19,8 @@ describe('middlewares', () => {
   const makeRequest = server => request(server).get(testUrl);
 
   describe('express middleware', () => {
-    const server = createServer(expressMiddleware({ logger }));
     const loggerMock = jest.spyOn(logger, 'info').mockImplementation(() => {}); // eslint-disable-line
+    const server = createServer(expressMiddleware({ loggerFn: logger.info }));
 
     const getLoggerCalledParams = num => loggerMock.mock.calls[num].map(JSON.stringify).join('');
 
