@@ -16,12 +16,54 @@ This will output:
 ```
 
 ## Advanced Usage
-### Logs for request beginning and end
+
+The exported `createLogger` function takes one optional argument,
+[`configuration`](#configuration) and
+returns a `logger instance`.
+
+<a id=configuration></a>
+### `configuration` (Object)
+
+#### `options` (Object)
+Default (pino): `{
+  prettyPrint: {
+    translateTime: true,
+    colorize: false
+  }
+}`
+
+Options for logger instance, check documentation of each package for more details ([pino](https://github.com/pinojs/pino/blob/master/docs/api.md#options))
+
+#### `loggerOption` (String)
+Default : `'pino'`
+
+Package used as logger, available options are: `['pino']`
+
+### Example
+```
+const { createLogger } = require('express-wolox-logger');
+
+const logger = createLogger({ 
+    loggerOption: 'pino',
+    options: {
+        customLevels: {
+            foo: 35
+        },
+        useOnlyCustomLevels: true,
+        level: 'foo'
+    } 
+})
+
+logger.foo('hello world');
+```
+
+# Middlewares
+## Logs for request beginning and end
 We provide an ExpressJs middleware that automatically logs when a request starts and ends. Simply import it and use it like any other middleware:
 ```
 const { logger, expressMiddleware } = require('express-wolox-logger');
 
-app.use(expressMiddleware({ logger }));
+app.use(expressMiddleware({ loggerFn: logger.info }));
 ```
 This in conjunction with the basic logs will output:
 ```
@@ -31,20 +73,52 @@ This in conjunction with the basic logs will output:
 [2019-06-14 17:35:13.781 +0000] INFO  (17439 on my-pc.local): Ended GET /logger/test with status: 200 in 10 ms
 ```
 
-### Request Ids
+## Request Ids
 We also provide an ExpressJs middleware that appends a `request id` to all logs made for a single request. This is useful for better tracking logs when there are several requests going on concurrently. Again, simply import it and use it like any other middleware.
-```
-const { logger, expressRequestIdMiddleware } = require('express-wolox-logger');
 
-app.use(expressRequestIdMiddleware({ logger }));
+### Basic Usage
+```
+const { expressRequestIdMiddleware } = require('express-wolox-logger');
+
+app.use(expressRequestIdMiddleware());
+```
+This, in conjunction with the basic logs will output:
+```
+[2019-06-14 17:35:13.772 +0000] INFO  (17439 on my-pc.local): [GNc7JovB7] hello world
+[2019-06-14 17:35:13.772 +0000] ERROR (17439 on my-pc.local): [GNc7JovB7] something bad happened
+```
+
+### Advanced Usage
+The exported `expressRequestIdMiddleware` function takes one optional argument, [`options`](#options) and returns a `middleware`.
+
+<a id=options></a>
+#### `options` (Object)
+
+##### `headerName` (String)
+Default: `x-request-id`
+
+Header from where the id is taken
+
+##### `idGenerator` (Function)
+Default: [shortid.generate](https://github.com/dylang/shortid#usage)
+
+Function used for generate ids in each request.
+
+### Example
+```
+const uuid = require('uuid');
+const { expressRequestIdMiddleware } = require('express-wolox-logger');
+
+app.use(expressRequestIdMiddleware({ headerName: 'id', idGenerator: uuid }));
 ```
 This, in conjunction with the basic logs will output:
 ```
 [2019-06-14 17:35:13.772 +0000] INFO  (17439 on my-pc.local): [a2936029-9bd4-402d-ba43-a4873f228274] hello world
 [2019-06-14 17:35:13.772 +0000] ERROR (17439 on my-pc.local): [a2936029-9bd4-402d-ba43-a4873f228274] something bad happened
 ```
-####Forwarding the request Id
-As a bonus, the previously mentioned request Id is taken from the `x-request-id` header if supplied, which lets said `request id` be transferred across services. You can do this by importing the `getRequestId` function and supplying it to the header when making requests.
+
+### Forwarding the request Id
+As a bonus, the previously mentioned request id is taken from the `x-request-id` header if supplied, which lets said `request id` be transferred across services. You can do this by importing the `getRequestId` function and supplying it to the header when making requests.
 ```
 const axios = require('axios'),
  { getRequestId } = require('express-wolox-logger');
