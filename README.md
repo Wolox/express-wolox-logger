@@ -132,6 +132,10 @@ We used [axios](https://www.npmjs.com/package/axios) for this example but other 
 ## Migrate from winston to express-wolox-logger
 If you are wondering how to migrate from wolox express-js boostrap configuration with winston to this package refer to the [step by step migration guide](Migrate.md)
 
+
+## Upgrade
+If you are wondering how to upgrade to a major version check [this upgrade guide](UPGRADING.md)
+
 ## Contributing
 
 1. Fork it
