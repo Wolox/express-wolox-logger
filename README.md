@@ -87,6 +87,16 @@ This, in conjunction with the basic logs will output:
 [2019-06-14 17:35:13.772 +0000] INFO  (17439 on my-pc.local): [GNc7JovB7] hello world
 [2019-06-14 17:35:13.772 +0000] ERROR (17439 on my-pc.local): [GNc7JovB7] something bad happened
 ```
+Note, that if you are using [Sequelize](http://docs.sequelizejs.com/), you need to configure it to use the logger's CLS namespace, otherwise the `requests ids` will not persist through `sequelize` promises. The same may apply to other frameworks.
+
+For `sequelize`, just set the namespace before creating a new `sequelize` instance:
+```
+const Sequelize = require('sequelize');
+const { namespace } = require('express-wolox-logger');
+
+Sequelize.useCLS(namespace);
+const sequelize = new Sequelize(...);
+```
 
 ### Advanced Usage
 The exported `expressRequestIdMiddleware` function takes one optional argument, [`options`](#options) and returns a `middleware`.

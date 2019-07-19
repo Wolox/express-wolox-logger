@@ -10,6 +10,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Add `jest` tests.
 * Add `eslint` configuration.
 
+## 0.0.3
+* Change namespace variable name from `ns` to `namespace` and exported it.
+* Bind end log function to the middleware context to fix some inconsistencies with it's requests ids.
+
 ## 0.0.2
 * Add migration guide and publish first version.
 
