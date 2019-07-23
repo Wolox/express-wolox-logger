@@ -1,10 +1,16 @@
 {
   "name": "express-wolox-logger",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "ExpressJS Wolox Logger",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "eslint-check": "eslint --print-config .eslintrc.js --ignore-pattern ./.eslintrc.js | eslint-config-prettier-check",
+    "lint": "eslint \"**/*.js\" --ignore-pattern ./.eslintrc.js",
+    "lint-diff": "git diff --name-only --cached --relative | grep \\\\.js$ | xargs eslint",
+    "lint-fix": "eslint \"**/*.js\" --fix --ignore-pattern ./.eslintrc.js",
+    "pretest": "npm run lint",
+    "test": "jest --runInBand",
+    "coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -25,11 +31,34 @@
     "url": "https://github.com/Wolox/express-wolox-logger/issues"
   },
   "homepage": "https://github.com/Wolox/express-wolox-logger#readme",
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/test/**/*.spec.js?(x)"
+    ],
+    "clearMocks": true
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint-diff"
+    }
+  },
   "dependencies": {
     "cls-hooked": "^4.2.2",
     "on-finished": "^2.3.0",
     "pino": "^5.11.1",
     "pino-pretty": "^2.5.0",
-    "uuid": "^3.3.2"
+    "shortid": "^2.2.14"
+  },
+  "devDependencies": {
+    "eslint": "^5.9.0",
+    "eslint-config-wolox": "^2.3.0",
+    "eslint-config-wolox-node": "^1.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "husky": "^2.3.0",
+    "jest": "^24.8.0",
+    "prettier": "^1.17.1",
+    "prettier-eslint": "^8.8.2",
+    "supertest": "^4.0.2"
   }
 }
