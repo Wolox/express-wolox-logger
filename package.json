@@ -51,6 +51,7 @@
     "shortid": "^2.2.14"
   },
   "devDependencies": {
+    "body-parser": "^1.19.0",
     "eslint": "^5.9.0",
     "eslint-config-wolox": "^2.3.0",
     "eslint-config-wolox-node": "^1.0.0",
