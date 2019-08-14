@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.1
+* Add `obfuscateBody` and `obfuscatePlaceholder` option for secure sensitive data in body.
+
 ## 1.0.0
 * Add some documentation in README.
 * Refactor old `index.js` in multiple files.

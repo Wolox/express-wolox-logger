@@ -59,7 +59,9 @@ logger.foo('hello world');
 
 # Middlewares
 ## Logs for request beginning and end
-We provide an ExpressJs middleware that automatically logs when a request starts and ends. Simply import it and use it like any other middleware:
+We provide an ExpressJs middleware that automatically logs when a request starts and ends. Simply import it and use it like any other middleware.
+
+### Basic Usage
 ```
 const { logger, expressMiddleware } = require('express-wolox-logger');
 
@@ -72,6 +74,71 @@ This in conjunction with the basic logs will output:
 [2019-06-14 17:35:13.772 +0000] ERROR (17439 on my-pc.local): something bad happened
 [2019-06-14 17:35:13.781 +0000] INFO  (17439 on my-pc.local): Ended GET /logger/test with status: 200 in 10 ms
 ```
+
+### Advanced Usage
+The exported `expressRequestIdMiddleware` function takes one argument, [`options`](#optionsStartEnd) and returns a `middleware`.
+
+<a id=optionsStartEnd></a>
+#### `options` (Object)
+
+##### `loggerFn` (Function)
+Logger function used for start and end log actions.
+
+##### `obfuscatePlaceholder` (String)
+Default: [SECURE]
+
+String to replace obfuscated body.
+
+##### `obfuscateBody` (Object|Boolean)
+Default: true
+
+Options for obfuscate body of request, could be a boolean (true or false) that applies to all requests or a object to an specific endpoint and method.
+
+#### Example
+```
+{
+  obfuscateBody: {
+    '/some_url': { // this should be a regex of url to obfuscate
+      POST: true // method to obfuscate
+    }
+  }
+}
+```
+
+
+### Obfuscating body of specific request
+```
+const { logger, expressMiddleware } = require('express-wolox-logger');
+
+app.use(expressMiddleware({ loggerFn: logger.info, obfuscatePlaceholder: '[SECRET]', obfuscateBody: { '/secure': { POST: true } } }));
+```
+This in conjunction with the basic logs will output:
+```
+[2019-06-14 17:35:13.770 +0000] INFO  (17439 on my-pc.local): Started POST /secure with params: {}, query: {}, body: [SECRET].
+[2019-06-14 17:35:13.772 +0000] INFO  (17439 on my-pc.local): hello world
+[2019-06-14 17:35:13.781 +0000] INFO  (17439 on my-pc.local): Ended POST /secure with status: 200 in 10 ms
+[2019-06-14 17:35:13.770 +0000] INFO  (17439 on my-pc.local): Started GET /secure with params: {}, query: {}, body: {}.
+[2019-06-14 17:35:13.772 +0000] INFO  (17439 on my-pc.local): hello world
+[2019-06-14 17:35:13.781 +0000] INFO  (17439 on my-pc.local): Ended GET /secure with status: 200 in 10 ms
+```
+
+### Obfuscating body of all requests
+```
+const { logger, expressMiddleware } = require('express-wolox-logger');
+
+app.use(expressMiddleware({ loggerFn: logger.info, obfuscatePlaceholder: '[SECRET]', obfuscateBody: true }));
+```
+This in conjunction with the basic logs will output:
+```
+[2019-06-14 17:35:13.770 +0000] INFO  (17439 on my-pc.local): Started POST /secure with params: {}, query: {}, body: [SECRET].
+[2019-06-14 17:35:13.772 +0000] INFO  (17439 on my-pc.local): hello world
+[2019-06-14 17:35:13.781 +0000] INFO  (17439 on my-pc.local): Ended POST /secure with status: 200 in 10 ms
+[2019-06-14 17:35:13.770 +0000] INFO  (17439 on my-pc.local): Started GET /secure with params: {}, query: {}, body: [SECRET].
+[2019-06-14 17:35:13.772 +0000] INFO  (17439 on my-pc.local): hello world
+[2019-06-14 17:35:13.781 +0000] INFO  (17439 on my-pc.local): Ended GET /secure with status: 200 in 10 ms
+```
+
+
 
 ## Request Ids
 We also provide an ExpressJs middleware that appends a `request id` to all logs made for a single request. This is useful for better tracking logs when there are several requests going on concurrently. Again, simply import it and use it like any other middleware.
