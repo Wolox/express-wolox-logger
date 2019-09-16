@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Next release
+* Add basic benchmarks.
+
 ## 1.0.1
 * Add `obfuscateBody` and `obfuscatePlaceholder` option for secure sensitive data in body.
 

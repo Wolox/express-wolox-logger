@@ -57,6 +57,13 @@ const logger = createLogger({
 logger.foo('hello world');
 ```
 
+## Benchmarks
+There is a script included to excecute a benchmark test on the logger functionallity. The script name is `bench` and test `10*iterations` logger calls with different messages types and sizes to print.
+It can have none or one argument indicating the number of iterations to test, being `100` the default iterations value:
+```
+npm run bench [iterations]
+```
+
 # Middlewares
 ## Logs for request beginning and end
 We provide an ExpressJs middleware that automatically logs when a request starts and ends. Simply import it and use it like any other middleware.
