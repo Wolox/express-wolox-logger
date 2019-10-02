@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - "8.11.4"
+dist: trusty
+
+# TODO: Set organization and token to vinculate to SonarCloud and uncomment next 5 lines and the line 15 (sonar-scanner)
+# addons:
+#   sonarcloud:
+#     organization: "wolox"
+#     token:
+#       secure: "" # encrypted value of your token
+
+script:
+  - npm run coverage
+  # - sonar-scanner
+
+notifications:
+  email: false
