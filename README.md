@@ -1,5 +1,7 @@
 # Express Wolox Logger
 
+[![Build Status](https://travis-ci.org/Wolox/express-wolox-logger.svg?branch=master)](https://travis-ci.org/Wolox/express-wolox-logger)
+
 ExpressJS logger that wraps [pino](https://github.com/pinojs/pino) with additional features like middlewares for unique request ids and automatic logging of request beginnings and endings.
 
 ## Basic Usage

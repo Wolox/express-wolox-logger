@@ -4,6 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Next release
 * Add basic benchmarks.
 * Do not log when silentMode opts flag exist.
+* Add Travis CI.
 
 ## 1.0.1
 * Add `obfuscateBody` and `obfuscatePlaceholder` option for secure sensitive data in body.

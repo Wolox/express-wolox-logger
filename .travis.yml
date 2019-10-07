@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "8.11.4"
+dist: trusty
+
+script:
+  - npm run test
+
+notifications:
+  email: false
