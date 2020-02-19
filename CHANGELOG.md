@@ -1,10 +1,7 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## Next release
-* Add basic benchmarks.
-* Do not log when silentMode opts flag exist.
-* Add Travis CI.
+From version 2.0.0+ changelog is in https://github.com/Wolox/express-wolox-logger/releases
 
 ## 1.0.1
 * Add `obfuscateBody` and `obfuscatePlaceholder` option for secure sensitive data in body.
