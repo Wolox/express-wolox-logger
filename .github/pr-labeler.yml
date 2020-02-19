@@ -1,0 +1,5 @@
+feature: feature/*
+fix: fix/*
+bug: bug/*
+bugfix: bugfix/*
+chore: [chore/*, dependabot/*]
