@@ -48,7 +48,7 @@
     "cls-hooked": "^4.2.2",
     "on-finished": "^2.3.0",
     "pino": "^5.11.1",
-    "pino-pretty": "^3.6.0",
+    "pino-pretty": "^4.0.0",
     "shortid": "^2.2.14"
   },
   "devDependencies": {
