@@ -47,7 +47,7 @@
   "dependencies": {
     "cls-hooked": "^4.2.2",
     "on-finished": "^2.3.0",
-    "pino": "^5.11.1",
+    "pino": "^6.1.0",
     "pino-pretty": "^3.6.0",
     "shortid": "^2.2.14"
   },
