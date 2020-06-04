@@ -13,9 +13,13 @@ logger.error('something bad happened');
 ```
 This will output:
 ```
-[2019-06-14 17:35:13.772 +0000] INFO  (17439 on my-pc.local): hello world
-[2019-06-14 17:35:13.772 +0000] ERROR (17439 on my-pc.local): something bad happened
+{"level":30,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"hello world"}
+{"level":22,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"something bad happened"}
 ```
+
+## Pretty print
+
+By default, we use NDJSON for logging, but if you want to format the logs in another way you can check the [pretty section](https://getpino.io/#/docs/pretty) of pino
 
 ## Advanced Usage
 
@@ -28,10 +32,7 @@ returns a `logger instance`.
 
 #### `options` (Object)
 Default (pino): `{
-  prettyPrint: {
-    translateTime: true,
-    colorize: false
-  }
+  mixin // we use this for add metadata log 
 }`
 
 Options for logger instance, check documentation of each package for more details ([pino](https://github.com/pinojs/pino/blob/master/docs/api.md#options))
@@ -78,10 +79,10 @@ app.use(expressMiddleware({ loggerFn: logger.info }));
 ```
 This in conjunction with the basic logs will output:
 ```
-[2019-06-14 17:35:13.770 +0000] INFO  (17439 on my-pc.local): Started GET /logger/test with params: {}, query: {}, body: {}.
-[2019-06-14 17:35:13.772 +0000] INFO  (17439 on my-pc.local): hello world
-[2019-06-14 17:35:13.772 +0000] ERROR (17439 on my-pc.local): something bad happened
-[2019-06-14 17:35:13.781 +0000] INFO  (17439 on my-pc.local): Ended GET /logger/test with status: 200 in 10 ms
+{"level":30,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"Started GET /logger/test with params: {}, query: {}, body: {}"}
+{"level":30,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"hello world"}
+{"level":22,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"something bad happened"}
+{"level":30,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"Ended GET /logger/test with status: 200 in 10 ms"}
 ```
 
 ### Advanced Usage
@@ -107,7 +108,7 @@ Options for obfuscate body of request, could be a boolean (true or false) that a
 ```
 {
   obfuscateBody: {
-    '/some_url': { // this should be a regex of url to obfuscate
+    '/some_url': { // this should be a regex of url to obfuscate
       POST: true // method to obfuscate
     }
   }
@@ -123,12 +124,12 @@ app.use(expressMiddleware({ loggerFn: logger.info, obfuscatePlaceholder: '[SECRE
 ```
 This in conjunction with the basic logs will output:
 ```
-[2019-06-14 17:35:13.770 +0000] INFO  (17439 on my-pc.local): Started POST /secure with params: {}, query: {}, body: [SECRET].
-[2019-06-14 17:35:13.772 +0000] INFO  (17439 on my-pc.local): hello world
-[2019-06-14 17:35:13.781 +0000] INFO  (17439 on my-pc.local): Ended POST /secure with status: 200 in 10 ms
-[2019-06-14 17:35:13.770 +0000] INFO  (17439 on my-pc.local): Started GET /secure with params: {}, query: {}, body: {}.
-[2019-06-14 17:35:13.772 +0000] INFO  (17439 on my-pc.local): hello world
-[2019-06-14 17:35:13.781 +0000] INFO  (17439 on my-pc.local): Ended GET /secure with status: 200 in 10 ms
+{"level":30,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"Started POST /secure with params: {}, query: {}, body: [SECRET]"}
+{"level":30,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"hello world"}
+{"level":22,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"Ended POST /secure with status: 200 in 10 ms"}
+{"level":30,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"Started GET /secure with params: {}, query: {}, body: {}"}
+{"level":22,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"hello world"}
+{"level":30,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"Ended GET /secure with status: 200 in 10 ms"}
 ```
 
 ### Obfuscating body of all requests
@@ -139,15 +140,13 @@ app.use(expressMiddleware({ loggerFn: logger.info, obfuscatePlaceholder: '[SECRE
 ```
 This in conjunction with the basic logs will output:
 ```
-[2019-06-14 17:35:13.770 +0000] INFO  (17439 on my-pc.local): Started POST /secure with params: {}, query: {}, body: [SECRET].
-[2019-06-14 17:35:13.772 +0000] INFO  (17439 on my-pc.local): hello world
-[2019-06-14 17:35:13.781 +0000] INFO  (17439 on my-pc.local): Ended POST /secure with status: 200 in 10 ms
-[2019-06-14 17:35:13.770 +0000] INFO  (17439 on my-pc.local): Started GET /secure with params: {}, query: {}, body: [SECRET].
-[2019-06-14 17:35:13.772 +0000] INFO  (17439 on my-pc.local): hello world
-[2019-06-14 17:35:13.781 +0000] INFO  (17439 on my-pc.local): Ended GET /secure with status: 200 in 10 ms
+{"level":30,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"Started POST /secure with params: {}, query: {}, body: [SECRET]"}
+{"level":30,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"hello world"}
+{"level":22,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"Ended POST /secure with status: 200 in 10 ms"}
+{"level":30,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"Started GET /secure with params: {}, query: {}, body: [SECRET]"}
+{"level":30,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"hello world"}
+{"level":22,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"Ended GET /secure with status: 200 in 10 ms"}
 ```
-
-
 
 ## Request Ids
 We also provide an ExpressJs middleware that appends a `request id` to all logs made for a single request. This is useful for better tracking logs when there are several requests going on concurrently. Again, simply import it and use it like any other middleware.
@@ -160,8 +159,8 @@ app.use(expressRequestIdMiddleware());
 ```
 This, in conjunction with the basic logs will output:
 ```
-[2019-06-14 17:35:13.772 +0000] INFO  (17439 on my-pc.local): [GNc7JovB7] hello world
-[2019-06-14 17:35:13.772 +0000] ERROR (17439 on my-pc.local): [GNc7JovB7] something bad happened
+{"level":30,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"hello world","requestId":"GNc7JovB7"}
+{"level":22,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"something bad happened","requestId":"GNc7JovB7" }
 ```
 Note, that if you are using [Sequelize](http://docs.sequelizejs.com/), you need to configure it to use the logger's CLS namespace, otherwise the `requests ids` will not persist through `sequelize` promises. The same may apply to other frameworks.
 
@@ -199,8 +198,8 @@ app.use(expressRequestIdMiddleware({ headerName: 'id', idGenerator: uuid }));
 ```
 This, in conjunction with the basic logs will output:
 ```
-[2019-06-14 17:35:13.772 +0000] INFO  (17439 on my-pc.local): [a2936029-9bd4-402d-ba43-a4873f228274] hello world
-[2019-06-14 17:35:13.772 +0000] ERROR (17439 on my-pc.local): [a2936029-9bd4-402d-ba43-a4873f228274] something bad happened
+{"level":30,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"hello world","requestId":"a2936029-9bd4-402d-ba43-a4873f228274"}
+{"level":22,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"something bad happened","requestId":"a2936029-9bd4-402d-ba43-a4873f228274" }
 ```
 
 ### Forwarding the request Id
@@ -214,6 +213,24 @@ axios.get(URL, { headers: { 'x-request-id': getRequestId() } });
 This will result in the requestId being logged through your services until the request chain ends.
 
 We used [axios](https://www.npmjs.com/package/axios) for this example but other requets packages like [request-promise](https://github.com/request/request-promise) work exactly the same way.
+
+## Logging Metadata
+We provide some functions to allow logging some extra metadata like the request-id or any custom field that you need for tracking in all your app logs
+
+### Example
+```
+const { addLogMetadata, getLogMetadata } = require('express-wolox-logger');
+
+app.use((req, res, next) => {
+  addLogMetadata({ some_custom_field: res.locals.some_field, other_custom_field: 'APP_FLOW' })
+  next();
+})
+```
+This, in conjunction with the basic logs will output:
+```
+{"level":30,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"hello world","some_custom_field": "some_value", "other_custom_field": "APP_FLOW"}
+{"level":22,"time":1591139401676,"pid":45656,"hostname":"192.168.1.4","msg":"something bad happened","some_custom_field": "some_value", "other_custom_field": "APP_FLOW"}
+```
 
 ## Migrate from winston to express-wolox-logger
 If you are wondering how to migrate from wolox express-js boostrap configuration with winston to this package refer to the [step by step migration guide](Migrate.md)
