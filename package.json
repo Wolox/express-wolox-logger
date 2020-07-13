@@ -1,6 +1,6 @@
 {
   "name": "express-wolox-logger",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "ExpressJS Wolox Logger",
   "main": "index.js",
   "scripts": {

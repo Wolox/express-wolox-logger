@@ -92,7 +92,13 @@ The exported `expressRequestIdMiddleware` function takes one argument, [`options
 #### `options` (Object)
 
 ##### `loggerFn` (Function)
-Logger function used for start and end log actions.
+Logger function used for start and end log actions with the default message format.
+
+##### `startFn` (Function)
+Function used in start log actions, mainly for custom messages.
+
+##### `endFn` (Function)
+Function used in end log actions, mainly for custom messages.
 
 ##### `obfuscatePlaceholder` (String)
 Default: [SECURE]
