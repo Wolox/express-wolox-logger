@@ -1,6 +1,7 @@
-const namespace = require('../lib/namespace');
+const context = require('../lib/context');
 
-const metadataSpy = jest.spyOn(namespace, 'getLogMetadata');
+const metadataSpy = jest.spyOn(context, 'getLogMetadata');
+jest.spyOn(context, 'getLogStore').mockImplementation(() => new Map());
 const processSpy = jest.spyOn(process.stdout, 'write');
 
 const { logger } = require('..');
