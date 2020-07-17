@@ -4,6 +4,24 @@
 
 ExpressJS logger that wraps [pino](https://github.com/pinojs/pino) with additional features like middlewares for unique request ids and automatic logging of request beginnings and endings.
 
+## Node versions support
+
+Below is a table with each version an the minimum version that is needed:
+
+|    | Node 8 | Node 10 | Node 12.17+ |
+|----|--------|---------|---------|
+| v1 | :white_check_mark:      |    :white_check_mark:     |    :white_check_mark:     |
+| v2 | :white_check_mark:      |    :white_check_mark:     |    :white_check_mark:     |
+| v3 | :x:       | :white_check_mark:       |    :white_check_mark:     |
+| v4 | :x:       |   :x:      | :white_check_mark:       |
+
+## Logging context
+
+In order to implement the context logging (like the request-id and the log metadata) we rely on experimental features of NodeJS, specifically on [async_hooks](https://nodejs.org/dist/latest-v12.x/docs/api/async_hooks.html), some versions use different APIs:
+
+- v0-v3: [AsyncHook](https://nodejs.org/dist/latest-v12.x/docs/api/async_hooks.html#async_hooks_async_hooks_createhook_callbacks) through the package [cls-hooked](https://www.npmjs.com/package/cls-hooked)
+- v4: [AsyncLocalStorage](https://nodejs.org/dist/latest-v12.x/docs/api/async_hooks.html#async_hooks_class_asynclocalstorage) internal node API
+
 ## Basic Usage
 ```
 const { logger } = require('express-wolox-logger');
