@@ -63,6 +63,6 @@
     "os": "^0.1.1",
     "prettier": "^1.17.1",
     "prettier-eslint": "^9.0.2",
-    "supertest": "^4.0.2"
+    "supertest": "^5.0.0"
   }
 }
