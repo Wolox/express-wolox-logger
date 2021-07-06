@@ -58,7 +58,7 @@
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-prettier": "^3.1.4",
     "fastbench": "^1.0.1",
-    "husky": "^4.2.5",
+    "husky": "^7.0.1",
     "jest": "^26.1.0",
     "os": "^0.1.1",
     "prettier": "^1.17.1",
