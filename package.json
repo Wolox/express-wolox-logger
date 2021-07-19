@@ -47,7 +47,7 @@
   "dependencies": {
     "on-finished": "^2.3.0",
     "pino": "^6.4.0",
-    "pino-pretty": "^4.0.3",
+    "pino-pretty": "^5.1.2",
     "shortid": "^2.2.14"
   },
   "devDependencies": {
