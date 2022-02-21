@@ -1,6 +1,6 @@
 {
   "name": "express-wolox-logger",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "ExpressJS Wolox Logger",
   "main": "index.js",
   "scripts": {
@@ -46,10 +46,10 @@
   },
   "dependencies": {
     "cls-hooked": "^4.2.2",
+    "nanoid": "^3.3.1",
     "on-finished": "^2.3.0",
     "pino": "^5.11.1",
-    "pino-pretty": "^3.6.0",
-    "shortid": "^2.2.14"
+    "pino-pretty": "^3.6.0"
   },
   "devDependencies": {
     "body-parser": "^1.19.0",

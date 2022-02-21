@@ -186,7 +186,7 @@ Default: `x-request-id`
 Header from where the id is taken
 
 ##### `idGenerator` (Function)
-Default: [shortid.generate](https://github.com/dylang/shortid#usage)
+Default: [nanoid(10)](https://github.com/ai/nanoid/)
 
 Function used for generate ids in each request.
 
